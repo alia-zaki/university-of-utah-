@@ -104,7 +104,7 @@ void setup()
     input.close();
   } else {
     // if the file didn't open, print an error:
-    Serial.println("FOCK");
+    Serial.println("Unable to open file");
   }
 
   if (SD.exists("weather.csv")) {
@@ -159,19 +159,6 @@ void setup()
 
 void loop()
 {
-  
-//      delay(1); // wait for drivers to be enabled so fault pins are no longer low
-//  //md.setM2Speed(400);
-//  int buttonVoltage = digitalRead(buttonPin);//*(5.0/1023.0);
-//  Serial.println(buttonVoltage);
-//  md.setM2Speed(400);
-//  while (buttonVoltage == 1) {
-//    delay(265);        //delay to allow switch to open again
-//    md.setM2Speed(0);
-//    delay(2000);
-//    break;
-//    delay(5);
-//}
   // Collect Data
   //----------------------------------------------------------------------------------
   // Grab weather values
@@ -184,26 +171,6 @@ void loop()
   hours = gps.time.hour();
   minutes = gps.time.minute();
   seconds = gps.time.second();
-
-  // Print the values to the serial monitor
-//  Serial.print(pressure);
-//  Serial.print(" Pa");
-//  Serial.print("\t");
-//  Serial.print(temp_h);
-//  Serial.print(" F");
-//  Serial.print("\t");
-//  Serial.print(humidity);
-//  Serial.print("%");
-//  Serial.print("\t");
-//  Serial.print(wind_speed);
-//  Serial.print("m/s");
-//  Serial.print("\t");
-//  Serial.print(hours);
-//  Serial.print(":");
-//  Serial.print(minutes);
-//  Serial.print(":");
-//  Serial.print(seconds);
-//  Serial.println();
 
   // Write to SD card
   //---------------------------------------------------------------------------------
@@ -250,6 +217,7 @@ float get_light_level()
 //This allows us to ignore what VCC might be (an Arduino plugged into USB has VCC of 4.5 to 5.2V)
 //Battery level is connected to the RAW pin on Arduino and is fed through two 5% resistors:
 //3.9K on the high side (R1), and 1K on the low side (R2)
+
 float get_wind_speed()
 {
   windVolts = analogRead(WIND) * resolution;
