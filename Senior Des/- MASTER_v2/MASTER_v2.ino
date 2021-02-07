@@ -32,7 +32,7 @@
 MPL3115A2 myPressure;               // Create an instance of the pressure sensor
 Weather myHumidity;                 // Create an instance of the humidity sensor
 TinyGPSPlus gps;                    // Creates instance of gps
-//DualTB9051FTGMotorShield md; // Create instance of trap motor
+DualTB9051FTGMotorShield md; // Create instance of trap motor
 
 static const int RXPin = 5, TXPin = 4; //GPS is attached to pin 4(TX from GPS) and pin 5(RX into GPS)
 SoftwareSerial ss(RXPin, TXPin);
@@ -76,11 +76,11 @@ void setup()
 {
   Serial.begin(9600); // Begin serial communication
 
- // md.init();
+  md.init();
   
   ss.begin(9600);
   SD.begin();
-  //md.enableDrivers();
+  md.enableDrivers();
 
   pinMode(buttonPin, INPUT);
   pinMode(chipSelect, OUTPUT); //
@@ -104,7 +104,7 @@ void setup()
     input.close();
   } else {
     // if the file didn't open, print an error:
-    Serial.println("FOCK");
+    Serial.println("File did not open");
   }
 
   if (SD.exists("weather.csv")) {
@@ -159,19 +159,20 @@ void setup()
 
 void loop()
 {
+ delay(1); // wait for drivers to be enabled so fault pins are no longer low
   
-//      delay(1); // wait for drivers to be enabled so fault pins are no longer low
-//  //md.setM2Speed(400);
-//  int buttonVoltage = digitalRead(buttonPin);//*(5.0/1023.0);
-//  Serial.println(buttonVoltage);
-//  md.setM2Speed(400);
-//  while (buttonVoltage == 1) {
-//    delay(265);        //delay to allow switch to open again
-//    md.setM2Speed(0);
-//    delay(2000);
-//    break;
-//    delay(5);
-//}
+ md.setM2Speed(400);
+ int buttonVoltage = digitalRead(buttonPin); //*(5.0/1023.0);
+ Serial.println(buttonVoltage);
+ md.setM2Speed(400);
+ while (buttonVoltage == 1) {
+   delay(265);        //delay to allow switch to open again
+   md.setM2Speed(0);
+   delay(2000);
+   break;
+   delay(5);
+}
+  
   // Collect Data
   //----------------------------------------------------------------------------------
   // Grab weather values
@@ -265,9 +266,3 @@ float get_wind_speed()
 
   return (wind_speed);
 }
-
-
-    
-
-   
- 
