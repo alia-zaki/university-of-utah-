@@ -1,0 +1,22 @@
+%Thermocouple Number	Thermocouple Temp. (C)
+% Pbaro = 776-120.6 mmHg
+% Tamb = 22.2 oC
+% dynamic pressure = 0.1 in H2O
+% voltage = 40.03 VAC
+% resistance = 157.1 Ohms
+1.0	29.1
+2.0	32.0
+3.0	32.9
+4.0	34.5
+5.0	37.1
+6.0	36.4
+7.0	36.7
+8.0	38.6
+9.0	38.2
+10.0	38.7
+11.0	38.9
+12.0	38.8
+13.0	39.8
+14.0	38.8
+15.0	39.5
+16.0	39.7
